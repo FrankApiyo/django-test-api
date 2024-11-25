@@ -4,7 +4,7 @@ Testing some DevOps skills
 
 ### How to upload and retreive a profile picture
 ```bash
-curl -v -u <username>:<password> -X POST -F "profile_picture=@/home/apiyo/gitrepos/onadata/profile.jpeg" http://127.0.0.1:8000/user-profile/
+curl -v -u <username>:<password> -X POST -F "profile_picture=@profile.jpeg" http://127.0.0.1:8000/user-profile/
 
 curl -v -u <username>:<password> http://127.0.0.1:8000/user-profile/
 ```

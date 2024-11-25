@@ -7,6 +7,7 @@ from django.conf import settings
 from rest_framework import permissions, viewsets
 
 import boto3
+import uuid
 import os
 from botocore.client import Config
 
@@ -17,14 +18,12 @@ from users.quickstart.serializers import (
 )
 from users.quickstart.models import UserProfile
 
-import boto3
-import uuid
-
 
 def get_s3_client():
     aws_endpoint_url = getattr(settings, "AWS_S3_ENDPOINT_URL", None)
+    signature_version = getattr(settings, "AWS_S3_SIGNATURE_VERSION", "s3v4")
     s3_config = Config(
-        signature_version=getattr(settings, "AWS_S3_SIGNATURE_VERSION", "s3v4"),
+        signature_version=signature_version,
         region_name=getattr(settings, "AWS_S3_REGION_NAME", None),
     )
     aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID")
@@ -55,7 +54,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         user = request.user  # Get the authenticated user
-        user_profile = get_object_or_404(UserProfile, user=user)  # Fetch user's profile
+        user_profile = get_object_or_404(UserProfile, user=user)
 
         # Generate a pre-signed S3 URL for the profile picture
         if not user_profile.profile_picture:
