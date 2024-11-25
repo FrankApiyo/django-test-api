@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "users.quickstart",
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,5 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
 }
+BUCKET_NAME = "userprofilepics"
+AWS_S3_ENDPOINT_URL = "http://192.168.100.229:9000"

@@ -27,6 +27,13 @@ router.register(r"groups", views.GroupViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
+    path(
+        "user-profile/",
+        views.UserProfileViewSet.as_view(
+            {"get": "retrieve", "head": "retrieve", "post": "create"}
+        ),
+        name="user_profile",
+    ),
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]

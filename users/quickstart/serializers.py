@@ -1,5 +1,12 @@
 from django.contrib.auth.models import Group, User
+from users.quickstart.models import UserProfile
 from rest_framework import serializers
+
+
+class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ["profile_picture"]
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
