@@ -15,7 +15,8 @@ services:
       - .:/app
     depends_on:
       - postgres
-    command: tail -f /dev/null
+    # command: tail -f /dev/null
+    command: python manage.py runserver 0.0.0.0:8000
     environment:
       DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:${POSTGRES_PORT}/${POSTGRES_DB}
 
