@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 RUN pip install --no-cache-dir -r base.pip
-RUN pip install --no-cache-dir -r dev.pip
+# RUN pip install --no-cache-dir -r dev.pip
 
 EXPOSE 8000
 
