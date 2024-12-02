@@ -16,7 +16,8 @@ services:
     depends_on:
       - postgres
     # command: tail -f /dev/null
-    command: python manage.py runserver 0.0.0.0:${APP_PORT}
+    # command: python manage.py runserver 0.0.0.0:${APP_PORT}
+    command: uwsgi --http 0.0.0.0:${APP_PORT} --module users.wsgi:application --master --processes 4 --threads 2 --static-map /app/static=/app/static/
     environment:
       DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:${POSTGRES_PORT}/${POSTGRES_DB}
 

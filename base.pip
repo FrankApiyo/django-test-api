@@ -5,3 +5,4 @@ sqlparse==0.5.2
 psycopg2
 boto3
 botocore
+uwsgi
