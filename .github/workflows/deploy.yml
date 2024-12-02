@@ -1,0 +1,36 @@
+---
+name: SSH into Remote and Update Repository
+on:
+  workflow_dispatch:
+    inputs:
+      remote_ip:
+        description: "The IP address of the remote server"
+        required: true
+        default: "192.168.1.1"  # Default IP address (can be overridden)
+      git_version:
+        description: "The Git branch or tag to check out"
+        required: true
+        default: "main"  # Default branch (can be overridden)
+
+jobs:
+  ssh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up SSH key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}  # Add the private key to GitHub secrets
+
+      - name: Run git commands in specific directories
+        run: |
+          ssh -o StrictHostKeyChecking=no test_api_user@${{ github.event.inputs.remote_ip }} "
+            cd /home/test_api_user/app &&
+            git fetch &&
+            git checkout ${{ github.event.inputs.git_version }} &&
+            echo 'Checked out ${{ github.event.inputs.git_version }}' &&
+
+            sudo systemctl restart your-service
+          "
