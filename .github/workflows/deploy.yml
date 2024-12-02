@@ -27,11 +27,9 @@ jobs:
       - name: Run git commands in specific directories
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@${{ github.event.inputs.remote_ip }} "
-            sudo su test_api_user &&
-            cd /home/test_api_user/app &&
-            git fetch &&
-            git checkout ${{ github.event.inputs.git_version }} &&
+            sudo -u test_api_user git -C /home/test_api_user/app fetch &&
+            sudo -u test_api_user git -C /home/test_api_user/app checkout ${{ github.event.inputs.git_version }} &&
             echo 'Checked out ${{ github.event.inputs.git_version }}' &&
 
-            sudo systemctl restart your-service
+            sudo systemctl restart test-api
           "
